@@ -1,0 +1,3 @@
+#define ChemTools_VERSION_MAJOR @ChemTools_VERSION_MAJOR@
+#define ChemTools_VERSION_MINOR @ChemTools_VERSION_MINOR@
+
