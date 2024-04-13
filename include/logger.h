@@ -39,8 +39,7 @@
 
 enum LogLevel { Error = 0, Warning, Info };
 
-class Log
-{
+class Log {
 public:
   static Log& GetInstance() {
     static Log log;
@@ -50,8 +49,6 @@ public:
 
   void SetLevel(LogLevel level) {
     _level = level;
-
-    return;
   }
 
   template<char sep='\0', char end='\n', class T, class... U>
@@ -61,8 +58,6 @@ public:
       ((std::cout << sep << rest), ...);
       std::cout << end;
     }
-
-    return;
   }
 
   template<char sep='\0', char end='\n', class T, class... U>
@@ -72,8 +67,6 @@ public:
       ((std::cout << sep << rest), ...);
       std::cout << end;
     }
-
-    return;
   }
 
   template<char sep='\0', char end='\n', class T, class... U>
@@ -83,20 +76,18 @@ public:
       ((std::cout << sep << rest), ...);
       std::cout << end;
     }
-
-    return;
   }
 
-  ~Log()                            = default;
+  ~Log()                           = default;
 
 private:
   LogLevel _level { LogLevel::Info };
 
-  Log()                             = default;
-  Log(const Log& other)             = delete;
-  Log& operator= (const Log& other) = delete;
-  Log(Log&& other)                  = delete;
-  Log& operator= (Log&& other)      = delete;
+  Log()                            = default;
+  Log(const Log& other)            = delete;
+  Log& operator=(const Log& other) = delete;
+  Log(Log&& other)                 = delete;
+  Log& operator=(Log&& other)      = delete;
 
 };
 

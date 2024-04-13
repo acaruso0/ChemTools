@@ -1,19 +1,20 @@
 #include "ChemToolsConfig.h"
 
+#include <QApplication>
+#include <QPushButton>
 #include "logger.h"
-#include <iostream>
 
 
-int main() {
-  //std::cout << "Version " << ChemTools_VERSION_MAJOR << '.' << ChemTools_VERSION_MINOR << std::endl;
-
-  //LOG(LogLevel::Warning);
+int main(int argc, char **argv) {
   LOG(LogLevel::Info);
-  INFO("Hello!");
   INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
-  WARNING("Hello! ", '\n', "test2");
-  ERROR("Hello! ", "test ", 42);
+  WARNING("This is a ", "TEST", '\n', "WARNING");
+  ERROR("TEST ", "ERROR! ", 42);
+  
+  QApplication app(argc, argv);
+  QPushButton button("DON'T PRESS");
+  button.show();
 
-  return 0;
+  return app.exec();
 }
 
