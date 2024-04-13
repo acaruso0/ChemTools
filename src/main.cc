@@ -1,3 +1,5 @@
+/* Copyright 2024 Alessandro Caruso */
+
 #include "ChemToolsConfig.h"
 
 #include <QApplication>
@@ -5,7 +7,7 @@
 #include "logger.h"
 
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   LOG(LogLevel::Info);
   INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
   WARNING("This is a ", "TEST", '\n', "WARNING");

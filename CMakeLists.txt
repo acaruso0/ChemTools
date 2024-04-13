@@ -19,12 +19,11 @@ configure_file(ChemToolsConfig.h.in ChemToolsConfig.h)
 
 #add_subdirectory("${PROJECT_SOURCE_DIR}/src")
 
-#add_executable(ChemTools src/main.cpp)
-qt_add_executable(ChemTools src/main.cpp)
+qt_add_executable(ChemTools src/main.cc)
 target_include_directories(ChemTools PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            include)
-                         #"${PROJECT_SOURCE_DIR}/include")
+
 #target_link_libraries(ChemTools PUBLIC libs/logger)
 target_link_libraries(ChemTools PRIVATE Qt6::Widgets)
 

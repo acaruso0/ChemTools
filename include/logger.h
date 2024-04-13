@@ -1,3 +1,5 @@
+/* Copyright 2024 Alessandro Caruso */
+
 #ifndef LOGGER_H
 #define LOGGER_H
 
@@ -40,7 +42,7 @@
 enum LogLevel { Error = 0, Warning, Info };
 
 class Log {
-public:
+ public:
   static Log& GetInstance() {
     static Log log;
 
@@ -48,12 +50,12 @@ public:
   }
 
   void SetLevel(LogLevel level) {
-    _level = level;
+    level = level;
   }
 
   template<char sep='\0', char end='\n', class T, class... U>
   void Info(const T& first, const U&... rest) {
-    if (_level >= LogLevel::Info) {
+    if (level >= LogLevel::Info) {
       std::cout << '[' << BOLDBLUE << "INFO" << RESET << "]: " << first;
       ((std::cout << sep << rest), ...);
       std::cout << end;
@@ -62,7 +64,7 @@ public:
 
   template<char sep='\0', char end='\n', class T, class... U>
   void Warning(const T& first, const U&... rest) {
-    if (_level >= LogLevel::Warning) {
+    if (level >= LogLevel::Warning) {
       std::cout << '[' << BOLDYELLOW << "WARNING" << RESET << "]: " << first;
       ((std::cout << sep << rest), ...);
       std::cout << end;
@@ -71,7 +73,7 @@ public:
 
   template<char sep='\0', char end='\n', class T, class... U>
   void Error(const T& first, const U&... rest) {
-    if (_level >= LogLevel::Error) {
+    if (level >= LogLevel::Error) {
       std::cout << '[' << BOLDRED << "ERROR" << RESET << "]: " << first;
       ((std::cout << sep << rest), ...);
       std::cout << end;
@@ -80,8 +82,8 @@ public:
 
   ~Log()                           = default;
 
-private:
-  LogLevel _level { LogLevel::Info };
+ private:
+  LogLevel level { LogLevel::Info };
 
   Log()                            = default;
   Log(const Log& other)            = delete;
@@ -91,4 +93,4 @@ private:
 
 };
 
-#endif
+#endif // LOGGER_H

@@ -1,3 +1,10 @@
+# Folders
+bin
+build
+
+# Old files
+*.old
+
 # Prerequisites
 *.d
 
