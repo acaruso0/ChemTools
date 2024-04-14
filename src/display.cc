@@ -1,3 +1,5 @@
+/* Copyright 2024 Alessandro Caruso */
+
 #include "display.h"
 
 void DisplayApplication::run() {

@@ -1,3 +1,5 @@
+/* Copyright 2024 Alessandro Caruso */
+
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
