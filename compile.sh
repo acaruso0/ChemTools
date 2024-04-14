@@ -12,7 +12,7 @@ cd build
 
 echo Compiling in ${BUILD_TYPE,} mode...
 cmake -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
-      -DCMAKE_CXX_COMPILER=g++           \
+      -DCMAKE_CXX_COMPILER=mpicxx        \
       ..
 cmake --build .
 cd ..

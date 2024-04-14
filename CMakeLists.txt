@@ -9,21 +9,27 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
 
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -s")
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -pedantic -Wextra -Werror -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -pedantic -Werror")
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 qt_standard_project_setup()
 
 configure_file(ChemToolsConfig.h.in ChemToolsConfig.h)
 
-#add_subdirectory("${PROJECT_SOURCE_DIR}/src")
+set(SOURCES src/main.cc
+            src/display.cc)
+qt_add_executable(ChemTools ${SOURCES})
 
-qt_add_executable(ChemTools src/main.cc)
+list(APPEND PROJECT_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
+
 target_include_directories(ChemTools PUBLIC
                            "${PROJECT_BINARY_DIR}"
-                           include)
+                           "${PROJECT_INCLUDE_DIR}"
+                           "${EXTRA_INCLUDES}")
 
-#target_link_libraries(ChemTools PUBLIC libs/logger)
 target_link_libraries(ChemTools PRIVATE Qt6::Widgets)
+target_link_libraries(ChemTools PRIVATE glfw)
 
+#add_subdirectory("${PROJECT_SOURCE_DIR}/src")
+#target_link_libraries(ChemTools PUBLIC libs/logger)
