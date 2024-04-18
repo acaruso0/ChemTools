@@ -14,9 +14,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -pedantic -Wer
 
 configure_file(ChemToolsConfig.h.in ChemToolsConfig.h)
 
-set(SOURCES src/cli.cc)
+set(SOURCES src/cli.cc
             #src/gui.cc
             #src/display.cc
+            src/pointcloud.cc)
 
 add_executable(ChemTools ${SOURCES})
 #qt_add_executable(ChemToolsGUI ${SOURCES_GUI} ${SHARED_SOURCES})

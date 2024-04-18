@@ -5,6 +5,7 @@
 #include <mpi.h>
 
 #include "logger.h"
+#include "pointcloud.h"
 
 
 int main(int argc, char** argv) {
@@ -24,6 +25,9 @@ int main(int argc, char** argv) {
   INFO("World size: ", world_size, ", Rank: ", my_rank);
 
   MPI_Finalize();
+
+  PointCloud frame{5};
+  INFO(frame.x, ": ", frame.x[0])
 
   return 0;
 }
