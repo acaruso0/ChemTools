@@ -16,6 +16,8 @@ int main(int argc, char** argv) {
 
   InputParser settings(argc, argv);
 
+  PointCloud frame{5};
+
   MPI_Init(&argc, &argv);
 
   int world_size;
@@ -27,9 +29,6 @@ int main(int argc, char** argv) {
   INFO("World size: ", world_size, ", Rank: ", my_rank);
 
   MPI_Finalize();
-
-  PointCloud frame{5};
-  INFO(frame.x, ": ", frame.x[0])
 
   return 0;
 }
