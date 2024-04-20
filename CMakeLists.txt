@@ -17,6 +17,7 @@ configure_file(ChemToolsConfig.h.in ChemToolsConfig.h)
 set(SOURCES src/cli.cc
             #src/gui.cc
             #src/display.cc
+            src/parser.cc
             src/pointcloud.cc)
 
 add_executable(ChemTools ${SOURCES})

@@ -13,10 +13,10 @@ struct PointCloud {
   ~PointCloud();
 
  private:
-  PointCloud(const PointCloud& other)            = delete;
-  PointCloud& operator=(const PointCloud& other) = delete;
-  PointCloud(PointCloud&& other)                 = delete;
-  PointCloud& operator=(PointCloud&& other)      = delete;
+  PointCloud(const PointCloud&)            = delete;
+  PointCloud& operator=(const PointCloud&) = delete;
+  PointCloud(PointCloud&&)                 = delete;
+  PointCloud& operator=(PointCloud&&)      = delete;
 };
 
 #endif // POINTCLOUD_H

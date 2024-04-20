@@ -26,11 +26,10 @@
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 #if DEBUG == 1
-  #define LOG(level)   Log& log { Log::GetInstance() }; \
-                           log.SetLevel(level);
-  #define INFO(...)    log.Info(__VA_ARGS__);
-  #define WARNING(...) log.Warning(__VA_ARGS__);
-  #define ERROR(...)   log.Error(__VA_ARGS__);
+  #define LOG(level)   Log::GetInstance().SetLevel(level);
+  #define INFO(...)    Log::GetInstance().Info(__VA_ARGS__);
+  #define WARNING(...) Log::GetInstance().Warning(__VA_ARGS__);
+  #define ERROR(...)   Log::GetInstance().Error(__VA_ARGS__);
 #elif DEBUG == 0
   #define LOG(...)
   #define INFO(...)
@@ -79,16 +78,16 @@ class Log {
     }
   }
 
-  ~Log()                           = default;
+  ~Log()                     = default;
 
  private:
   LogLevel level { LogLevel::Info };
 
-  Log()                            = default;
-  Log(const Log& other)            = delete;
-  Log& operator=(const Log& other) = delete;
-  Log(Log&& other)                 = delete;
-  Log& operator=(Log&& other)      = delete;
+  Log()                      = default;
+  Log(const Log&)            = delete;
+  Log& operator=(const Log&) = delete;
+  Log(Log&&)                 = delete;
+  Log& operator=(Log&&)      = delete;
 
 };
 

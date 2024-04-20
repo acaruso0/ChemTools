@@ -6,13 +6,15 @@
 
 #include "logger.h"
 #include "pointcloud.h"
-
+#include "parser.h"
 
 int main(int argc, char** argv) {
   LOG(LogLevel::Info);
   INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
   //WARNING("This is a ", "TEST", '\n', "WARNING");
   //ERROR("TEST ", "ERROR! ", 42);
+
+  InputParser settings(argc, argv);
 
   MPI_Init(&argc, &argv);
 
