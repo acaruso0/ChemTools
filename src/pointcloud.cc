@@ -1,24 +1,13 @@
 #include "pointcloud.h"
 
-#include "logger.h"
-
-PointCloudArray::PointCloudArray(const unsigned int& n_frames, const unsigned int& n_points):
-  n_frames(n_frames), n_points(n_points) {
-  x = new double[n_frames*n_points];
-  y = new double[n_frames*n_points];
-  z = new double[n_frames*n_points];
-}
-
-PointCloudArray::~PointCloudArray() {
-  delete[] x;
-  delete[] y;
-  delete[] z;
-}
-
-PointCloud::PointCloud(const unsigned int& n_points): n_points(n_points) {
-  x = new double[n_points];
-  y = new double[n_points];
-  z = new double[n_points];
+void PointCloud::Allocate(const unsigned int& _nframes, const unsigned int& _npoints) {
+  if (!x and !y and !z) {
+    nframes = _nframes;
+    npoints = _npoints;
+    x = new double[nframes*npoints];
+    y = new double[nframes*npoints];
+    z = new double[nframes*npoints];
+  }
 }
 
 PointCloud::~PointCloud() {

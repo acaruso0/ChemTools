@@ -5,7 +5,6 @@
 #include <mpi.h>
 
 #include "logger.h"
-#include "pointcloud.h"
 #include "parser.h"
 
 int main(int argc, char** argv) {
@@ -15,8 +14,6 @@ int main(int argc, char** argv) {
   //ERROR("TEST ", "ERROR! ", 42);
 
   InputParser settings(argc, argv);
-
-  PointCloud frame{5};
 
   MPI_Init(&argc, &argv);
 

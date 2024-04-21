@@ -10,7 +10,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s -march=native")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -pedantic -Werror")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wpedantic -Werror")
 
 configure_file(ChemToolsConfig.h.in ChemToolsConfig.h)
 
@@ -18,6 +18,7 @@ set(SOURCES src/cli.cc
             #src/gui.cc
             #src/display.cc
             src/parser.cc
+            src/io.cc
             src/pointcloud.cc)
 
 add_executable(ChemTools ${SOURCES})

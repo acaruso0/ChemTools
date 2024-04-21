@@ -3,41 +3,32 @@
 #ifndef POINTCLOUD_H
 #define POINTCLOUD_H
 
-class PointCloudArray {
- public:
-  PointCloudArray(const unsigned int&, const unsigned int&);
-  ~PointCloudArray();
+struct PointCloud;
 
- private:
-  unsigned int n_frames{0};
-  unsigned int n_points{0};
-  
-  double* x{nullptr};
-  double* y{nullptr};
-  double* z{nullptr};
-
-  PointCloudArray(const PointCloudArray&)            = delete;
-  PointCloudArray& operator=(const PointCloudArray&) = delete;
-  PointCloudArray(PointCloudArray&&)                 = delete;
-  PointCloudArray& operator=(PointCloudArray&&)      = delete;
-};
+namespace io {
+  PointCloud* read_xyz_from_file(const char *filename, PointCloud *data);
+}
 
 struct PointCloud {
+  friend PointCloud* io::read_xyz_from_file(const char *filename, PointCloud *data);
  public:
-  PointCloud(const unsigned int&);
+  PointCloud()                                   = default;
   ~PointCloud();
 
  private:
-  unsigned int n_points{0};
+  unsigned int nframes{0};
+  unsigned int npoints{0};
 
   double* x{nullptr};
   double* y{nullptr};
   double* z{nullptr};
 
-  PointCloud(const PointCloud&)            = delete;
-  PointCloud& operator=(const PointCloud&) = delete;
-  PointCloud(PointCloud&&)                 = delete;
-  PointCloud& operator=(PointCloud&&)      = delete;
+  void Allocate(const unsigned int& _nframes, const unsigned int& _npoints);
+
+  PointCloud(const PointCloud& other)            = delete;
+  PointCloud& operator=(const PointCloud& other) = delete;
+  PointCloud(PointCloud&& other)                 = delete;
+  PointCloud& operator=(PointCloud&& other)      = delete;
 };
 
 #endif // POINTCLOUD_H

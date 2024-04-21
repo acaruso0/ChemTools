@@ -78,16 +78,16 @@ class Log {
     }
   }
 
-  ~Log()                     = default;
+  ~Log()                           = default;
 
  private:
   LogLevel level { LogLevel::Info };
 
-  Log()                      = default;
-  Log(const Log&)            = delete;
-  Log& operator=(const Log&) = delete;
-  Log(Log&&)                 = delete;
-  Log& operator=(Log&&)      = delete;
+  Log()                            = default;
+  Log(const Log& other)            = delete;
+  Log& operator=(const Log& other) = delete;
+  Log(Log&& other)                 = delete;
+  Log& operator=(Log&& other)      = delete;
 
 };
 

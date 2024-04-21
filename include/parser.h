@@ -5,13 +5,13 @@
 
 class InputParser {
  public:
-   InputParser(int, char**);
-   ~InputParser()                             = default;
+   InputParser(int argc, char** argv);
+   ~InputParser()                                   = default;
  private:
-   InputParser(const InputParser&)            = delete;
-   InputParser& operator=(const InputParser&) = delete;
-   InputParser(InputParser&&)                 = delete;
-   InputParser& operator=(InputParser&&)      = delete;
+   InputParser(const InputParser& other)            = delete;
+   InputParser& operator=(const InputParser& other) = delete;
+   InputParser(InputParser&& other)                 = delete;
+   InputParser& operator=(InputParser&& other)      = delete;
 };
 
 #endif // PARSER_H
