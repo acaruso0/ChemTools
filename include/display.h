@@ -11,15 +11,18 @@ const uint32_t HEIGHT = 600;
 
 class DisplayApplication {
  public:
-  void run();
+  void Run();
 
  private:
   GLFWwindow* window;
+  VkInstance instance;
 
-  void initWindow();
-  void initVulkan();
-  void mainLoop();
+  void init_window();
+  void init_vulkan();
+  void main_loop();
   void cleanup();
+
+  void create_instance();
 };
 
 #endif // DISPLAY_H

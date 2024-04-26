@@ -1,3 +1,5 @@
+/* Copyright 2024 Alessandro Caruso */
+
 #include "parser.h"
 
 #include <iostream>
@@ -10,13 +12,12 @@ InputParser::InputParser(int argc, char** argv) {
     }
     std::cout << std::endl;
   } else {
-    PrintUsage();
+    print_usage();
   }
 }
 
-void InputParser::PrintUsage() {
+void InputParser::print_usage() {
   std::cout << "Usage: ChemTools [options] file...\n"
             << "Options:\n"
             << "-m/--method" << std::endl;
 }
-

@@ -23,7 +23,7 @@ struct PointCloud {
   double* y{nullptr};
   double* z{nullptr};
 
-  void Allocate(const unsigned int& _nframes, const unsigned int& _npoints);
+  void allocate();
 
   PointCloud(const PointCloud& other)            = delete;
   PointCloud& operator=(const PointCloud& other) = delete;

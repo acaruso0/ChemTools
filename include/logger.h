@@ -47,8 +47,8 @@ class Log {
     return log;
   }
 
-  void SetLevel(LogLevel level) {
-    level = level;
+  void SetLevel(LogLevel _level) {
+    level = _level;
   }
 
   template<char sep='\0', char end='\n', class T, class... U>

@@ -2,18 +2,37 @@
 
 #include "ChemToolsConfig.h"
 
+#include <cstdlib>
+#include <exception>
 #include <mpi.h>
+#include <iostream>
 
-#include "logger.h"
+//#include "logger.h"
+#include "options.h"
 #include "parser.h"
+#include "gui.h"
+#include "display.h"
+
 
 int main(int argc, char** argv) {
-  LOG(LogLevel::Info);
-  INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
+  //LOG(LogLevel::Info);
+  //INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
   //WARNING("This is a ", "TEST", '\n', "WARNING");
   //ERROR("TEST ", "ERROR! ", 42);
 
-  InputParser settings(argc, argv);
+  InputParser parser(argc, argv);
+
+  GraphicalUserInterface gui(argc, argv);
+  gui.Run();
+
+  DisplayApplication app;
+
+  try {
+    app.Run();
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
+    return EXIT_FAILURE;
+  }
 
   MPI_Init(&argc, &argv);
 
@@ -23,10 +42,10 @@ int main(int argc, char** argv) {
   int my_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-  INFO("World size: ", world_size, ", Rank: ", my_rank);
+  //INFO("World size: ", world_size, ", Rank: ", my_rank);
 
   MPI_Finalize();
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 
