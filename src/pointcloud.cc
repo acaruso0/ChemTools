@@ -2,9 +2,9 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <iostream>
 #include <system_error>
 
-#include "logger.h"
 
 void PointCloud::allocate() {
   assert(nframes > 0 and npoints > 0);
@@ -14,7 +14,8 @@ void PointCloud::allocate() {
     z = new double[nframes*npoints];
   }
   if (!x or !y or !z) {
-    ERROR(std::make_error_code(std::errc::not_enough_memory).message());
+    std::cerr << std::make_error_code(std::errc::not_enough_memory).message()
+              << std::endl;
     std::exit(EXIT_FAILURE);
   }
 }

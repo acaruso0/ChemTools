@@ -15,20 +15,17 @@
 
 
 int main(int argc, char** argv) {
-  //LOG(LogLevel::Info);
-  //INFO("Version ", ChemTools_VERSION_MAJOR, '.', ChemTools_VERSION_MINOR);
-  //WARNING("This is a ", "TEST", '\n', "WARNING");
-  //ERROR("TEST ", "ERROR! ", 42);
+  std::cout << "Version " << ChemTools_VERSION_MAJOR << '.' << ChemTools_VERSION_MINOR << std::endl;
 
   InputParser parser(argc, argv);
 
   GraphicalUserInterface gui(argc, argv);
-  gui.Run();
+  gui.run();
 
   DisplayApplication app;
 
   try {
-    app.Run();
+    app.run();
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
     return EXIT_FAILURE;
@@ -42,7 +39,7 @@ int main(int argc, char** argv) {
   int my_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-  //INFO("World size: ", world_size, ", Rank: ", my_rank);
+  std::cout << "World size: " << world_size << ", Rank: " << my_rank << std::endl;
 
   MPI_Finalize();
 

@@ -2,9 +2,12 @@
 
 #include "gui.h"
 
+#include <QApplication>
+#include <QPushButton>
+
 GraphicalUserInterface::GraphicalUserInterface(int argc, char** argv): app(argc, argv) {}
 
-int GraphicalUserInterface::Run() {
+int GraphicalUserInterface::run() {
   QPushButton button("DON'T PRESS");
   button.show();
 

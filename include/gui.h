@@ -8,7 +8,7 @@
 
 class GraphicalUserInterface {
  public:
-  int Run();
+  int run();
   GraphicalUserInterface(int argc, char** argv);
   ~GraphicalUserInterface()                                              = default;
 

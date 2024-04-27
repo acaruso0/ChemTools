@@ -6,7 +6,7 @@
 
 class InputParser {
  public:
-  void Listen();
+  void listen();
 
   InputParser(int argc, char** argv);
   ~InputParser()                                   = default;
