@@ -1,7 +1,7 @@
 /* Copyright 2024 Alessandro Caruso */
 
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef CHEMTOOLS_PARSER_H
+#define CHEMTOOLS_PARSER_H
 
 
 class InputParser {
@@ -20,4 +20,4 @@ class InputParser {
   InputParser& operator=(InputParser&& other)      = delete;
 };
 
-#endif // PARSER_H
+#endif // CHEMTOOLS_PARSER_H

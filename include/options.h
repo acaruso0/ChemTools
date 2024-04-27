@@ -1,7 +1,8 @@
 /* Copyright 2024 Alessandro Caruso */
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef CHEMTOOLS_OPTIONS_H
+#define CHEMTOOLS_OPTIONS_H
+
 
 enum class Format : signed char { UNDEF, XYZ, PDB };
 enum class Method : signed char { UNDEF, DFT, HF };
@@ -22,4 +23,4 @@ struct Options {
   Options& operator=(Options&& other)      = delete;
 };
 
-#endif // OPTIONS_H
+#endif // CHEMTOOLS_OPTIONS_H

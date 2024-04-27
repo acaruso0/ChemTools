@@ -1,10 +1,9 @@
 /* Copyright 2024 Alessandro Caruso */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef CHEMTOOLS_GUI_H
+#define CHEMTOOLS_GUI_H
 
 #include <QApplication>
-#include <QPushButton>
 
 
 class GraphicalUserInterface {
@@ -22,4 +21,4 @@ class GraphicalUserInterface {
   GraphicalUserInterface* operator=(GraphicalUserInterface&& other)      = delete;
 };
 
-#endif // GUI_H
+#endif // CHEMTOOLS_GUI_H

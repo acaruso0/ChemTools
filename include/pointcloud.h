@@ -1,7 +1,7 @@
 /* Copyright 2024 Alessandro Caruso */
 
-#ifndef POINTCLOUD_H
-#define POINTCLOUD_H
+#ifndef CHEMTOOLS_POINTCLOUD_H
+#define CHEMTOOLS_POINTCLOUD_H
 
 struct PointCloud;
 
@@ -31,4 +31,4 @@ struct PointCloud {
   PointCloud& operator=(PointCloud&& other)      = delete;
 };
 
-#endif // POINTCLOUD_H
+#endif // CHEMTOOLS_POINTCLOUD_H
