@@ -5,9 +5,11 @@
 #include <alloca.h>
 #include <cstdint>
 #include <cstring>
+#include <set>
 #include <stdexcept>
 #include <vector>
 #include <iostream>
+#include <vulkan/vulkan_core.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -54,6 +56,7 @@ void DisplayApplication::init_window() {
 void DisplayApplication::init_vulkan() {
   create_instance();
   setup_debug_messenger();
+  create_surface();
   pick_physical_device();
   create_logical_device();
 }
@@ -71,6 +74,7 @@ void DisplayApplication::cleanup() {
     destroy_debug_utils_messengerEXT(instance, debug_messenger, nullptr);
   }
 
+  vkDestroySurfaceKHR(instance, surface, nullptr);
   vkDestroyInstance(instance, nullptr);
   glfwDestroyWindow(window);
   glfwTerminate();
@@ -103,18 +107,6 @@ void DisplayApplication::create_instance() {
   } else {
     create_info.enabledLayerCount = 0;
   }
-
-  /*
-  uint32_t extension_count = 0;
-  vkEnumerateInstanceExtensionProperties(nullptr, &extension_count, nullptr);
-  std::vector<VkExtensionProperties> extensions(extension_count);
-  vkEnumerateInstanceExtensionProperties(nullptr, &extension_count, extensions.data());
-  
-  std::cout << "Available extensions:\n";
-  for (const VkExtensionProperties& extension : extensions) {
-    std::cout << '\t' << extension.extensionName << '\n';
-  }
-  */
 
   VkDebugUtilsMessengerCreateInfoEXT debug_create_info{};
   if (enable_validation_layers) {
@@ -260,6 +252,12 @@ QueueFamilyIndices DisplayApplication::find_queue_families(VkPhysicalDevice devi
       indices.graphics_family = i;
     }
 
+    VkBool32 present_support = false;
+    vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &present_support);
+    if (present_support) {
+      indices.present_family = i;
+    }
+
     if (indices.is_complete()) {
       break;
     }
@@ -273,20 +271,26 @@ QueueFamilyIndices DisplayApplication::find_queue_families(VkPhysicalDevice devi
 void DisplayApplication::create_logical_device() {
   QueueFamilyIndices indices = find_queue_families(physical_device);
 
-  VkDeviceQueueCreateInfo queue_create_info{};
-  queue_create_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-  queue_create_info.queueFamilyIndex = indices.graphics_family.value();
-  queue_create_info.queueCount = 1;
+  std::vector<VkDeviceQueueCreateInfo> queue_create_infos;
+  std::set<uint32_t> unique_queue_families = {indices.graphics_family.value(),
+                                              indices.present_family.value()};
 
   float queue_priority = 1.0f;
-  queue_create_info.pQueuePriorities = &queue_priority;
+  for (uint32_t queue_family : unique_queue_families) {
+    VkDeviceQueueCreateInfo queue_create_info{};
+    queue_create_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    queue_create_info.queueFamilyIndex = queue_family;
+    queue_create_info.queueCount = 1;
+    queue_create_info.pQueuePriorities = &queue_priority;
+    queue_create_infos.push_back(queue_create_info);
+  }
 
   VkPhysicalDeviceFeatures device_features{};
 
   VkDeviceCreateInfo create_info{};
   create_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-  create_info.pQueueCreateInfos = &queue_create_info;
-  create_info.queueCreateInfoCount = 1;
+  create_info.queueCreateInfoCount = static_cast<uint32_t>(queue_create_infos.size());
+  create_info.pQueueCreateInfos = queue_create_infos.data();
   create_info.pEnabledFeatures = &device_features;
 
   create_info.enabledExtensionCount = 0;
@@ -303,5 +307,12 @@ void DisplayApplication::create_logical_device() {
   }
 
   vkGetDeviceQueue(device, indices.graphics_family.value(), 0, &graphics_queue);
+  vkGetDeviceQueue(device, indices.present_family.value(), 0, &present_queue);
+}
+
+void DisplayApplication::create_surface() {
+  if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
+    throw std::runtime_error("Failed to create window surface!");
+  }
 }
 

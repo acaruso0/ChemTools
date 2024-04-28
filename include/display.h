@@ -5,6 +5,7 @@
 
 #include <optional>
 #include <vector>
+#include <vulkan/vulkan_core.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -31,9 +32,10 @@ void destroy_debug_utils_messengerEXT(VkInstance instance,
 
 struct QueueFamilyIndices {
   std::optional<uint32_t> graphics_family;
+  std::optional<uint32_t> present_family;
 
   bool is_complete() {
-    return graphics_family.has_value();
+    return graphics_family.has_value() && present_family.has_value();
   }
 };
 
@@ -48,6 +50,8 @@ class DisplayApplication {
   VkPhysicalDevice physical_device = VK_NULL_HANDLE;
   VkDevice device;
   VkQueue graphics_queue;
+  VkSurfaceKHR surface;
+  VkQueue present_queue;
 
   void init_window();
   void init_vulkan();
@@ -68,8 +72,9 @@ class DisplayApplication {
   void pick_physical_device();
   bool is_device_suitable(VkPhysicalDevice device);
   QueueFamilyIndices find_queue_families(VkPhysicalDevice device);
-
   void create_logical_device();
+
+  void create_surface();
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
