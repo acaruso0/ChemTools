@@ -6,11 +6,14 @@
 #include <alloca.h>
 #include <cstdint>
 #include <cstring>
+#include <fstream>
 #include <limits>
 #include <set>
 #include <stdexcept>
+#include <string>
 #include <vector>
 #include <iostream>
+#include <vulkan/vulkan_core.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -62,6 +65,7 @@ void DisplayApplication::init_vulkan() {
   create_logical_device();
   create_swap_chain();
   create_image_views();
+  create_graphics_pipeline();
 }
 
 void DisplayApplication::main_loop() {
@@ -494,5 +498,64 @@ void DisplayApplication::create_image_views() {
       throw std::runtime_error("Failed to create image views!");
     }
   }
+}
+
+void DisplayApplication::create_graphics_pipeline() {
+  std::vector<char> vert_shader_code = read_binary_file("/home/alessandro/codes/ChemTools/lib/shaders/vert.spv");
+  std::vector<char> frag_shader_code = read_binary_file("/home/alessandro/codes/ChemTools/lib/shaders/frag.spv");
+
+  VkShaderModule vert_shader_module = create_shader_module(vert_shader_code);
+  VkShaderModule frag_shader_module = create_shader_module(frag_shader_code);
+
+  VkPipelineShaderStageCreateInfo vert_shader_stage_info{};
+  vert_shader_stage_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+  vert_shader_stage_info.stage = VK_SHADER_STAGE_VERTEX_BIT;
+  vert_shader_stage_info.module = vert_shader_module;
+  vert_shader_stage_info.pName = "main";
+  vert_shader_stage_info.pSpecializationInfo = nullptr;
+
+  VkPipelineShaderStageCreateInfo frag_shader_stage_info{};
+  frag_shader_stage_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+  frag_shader_stage_info.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+  frag_shader_stage_info.module = frag_shader_module;
+  frag_shader_stage_info.pName = "main";
+  frag_shader_stage_info.pSpecializationInfo = nullptr;
+
+  VkPipelineShaderStageCreateInfo shader_stages[] = { vert_shader_stage_info,
+                                                      frag_shader_stage_info };
+
+  vkDestroyShaderModule(device, vert_shader_module, nullptr);
+  vkDestroyShaderModule(device, frag_shader_module, nullptr);
+}
+
+std::vector<char> DisplayApplication::read_binary_file(const std::string& filename) {
+  std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+  if (!file.is_open()) {
+    throw std::runtime_error("Failed to open file!");
+  }
+
+  size_t file_size = (size_t)file.tellg();
+  std::vector<char> buffer(file_size);
+  
+  file.seekg(0);
+  file.read(buffer.data(), file_size);
+
+  file.close();
+  return buffer;
+}
+
+VkShaderModule DisplayApplication::create_shader_module(const std::vector<char>& code) {
+  VkShaderModuleCreateInfo create_info{};
+  create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+  create_info.codeSize = code.size();
+  create_info.pCode = reinterpret_cast<const uint32_t*>(code.data());
+
+  VkShaderModule shader_module;
+  if (vkCreateShaderModule(device, &create_info, nullptr, &shader_module) != VK_SUCCESS) {
+    throw std::runtime_error("Failed to create shader module!");
+  }
+
+  return shader_module;
 }
 

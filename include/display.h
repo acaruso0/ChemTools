@@ -4,6 +4,7 @@
 #define CHEMTOOLS_DISPLAY_H
 
 #include <optional>
+#include <string>
 #include <vector>
 
 #define GLFW_INCLUDE_VULKAN
@@ -94,6 +95,10 @@ class DisplayApplication {
   void create_swap_chain();
   
   void create_image_views();
+  void create_graphics_pipeline();
+
+  static std::vector<char> read_binary_file(const std::string& filename);
+  VkShaderModule create_shader_module(const std::vector<char>& code);
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
