@@ -5,7 +5,6 @@
 
 #include <optional>
 #include <vector>
-#include <vulkan/vulkan_core.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -63,6 +62,7 @@ class DisplayApplication {
   std::vector<VkImage> swap_chain_images;
   VkFormat swap_chain_image_format;
   VkExtent2D swap_chain_extent;
+  std::vector<VkImageView> swap_chain_image_views;
 
   void init_window();
   void init_vulkan();
@@ -92,6 +92,8 @@ class DisplayApplication {
   VkPresentModeKHR choose_swap_present_mode(const std::vector<VkPresentModeKHR>& available_present_modes);
   VkExtent2D choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities);
   void create_swap_chain();
+  
+  void create_image_views();
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
