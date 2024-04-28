@@ -15,6 +15,7 @@ const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;
 
 const std::vector<const char*> validation_layers = { "VK_LAYER_KHRONOS_validation" };
+const std::vector<const char*> device_extensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
 #ifdef NDEBUG
   const bool enable_validation_layers = false;
@@ -39,6 +40,12 @@ struct QueueFamilyIndices {
   }
 };
 
+struct SwapChainSupportDetails {
+  VkSurfaceCapabilitiesKHR capabilities;
+  std::vector<VkSurfaceFormatKHR> formats;
+  std::vector<VkPresentModeKHR> present_modes;
+};
+
 class DisplayApplication {
  public:
   void run();
@@ -50,8 +57,12 @@ class DisplayApplication {
   VkPhysicalDevice physical_device = VK_NULL_HANDLE;
   VkDevice device;
   VkQueue graphics_queue;
-  VkSurfaceKHR surface;
   VkQueue present_queue;
+  VkSurfaceKHR surface;
+  VkSwapchainKHR swap_chain;
+  std::vector<VkImage> swap_chain_images;
+  VkFormat swap_chain_image_format;
+  VkExtent2D swap_chain_extent;
 
   void init_window();
   void init_vulkan();
@@ -75,6 +86,12 @@ class DisplayApplication {
   void create_logical_device();
 
   void create_surface();
+  bool check_device_extension_support(VkPhysicalDevice device);
+  SwapChainSupportDetails query_swap_chain_support(VkPhysicalDevice device);
+  VkSurfaceFormatKHR choose_swap_surface_format(const std::vector<VkSurfaceFormatKHR>& available_formats);
+  VkPresentModeKHR choose_swap_present_mode(const std::vector<VkPresentModeKHR>& available_present_modes);
+  VkExtent2D choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities);
+  void create_swap_chain();
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
