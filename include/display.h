@@ -72,6 +72,10 @@ class DisplayApplication {
   VkCommandPool command_pool;
   VkCommandBuffer command_buffer;
 
+  VkSemaphore image_available_semaphore;
+  VkSemaphore render_finished_semaphore;
+  VkFence in_flight_fence;
+
   void init_window();
   void init_vulkan();
   void main_loop();
@@ -112,6 +116,7 @@ class DisplayApplication {
   void create_command_buffer();
   void record_command_buffer(VkCommandBuffer command_buffer, uint32_t image_index);
 
+  void create_sync_objects();
   void draw_frame();
 };
 
