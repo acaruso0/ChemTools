@@ -64,6 +64,9 @@ class DisplayApplication {
   VkFormat swap_chain_image_format;
   VkExtent2D swap_chain_extent;
   std::vector<VkImageView> swap_chain_image_views;
+  VkRenderPass render_pass;
+  VkPipelineLayout pipeline_layout;
+  VkPipeline graphics_pipeline;
 
   void init_window();
   void init_vulkan();
@@ -99,6 +102,7 @@ class DisplayApplication {
 
   static std::vector<char> read_binary_file(const std::string& filename);
   VkShaderModule create_shader_module(const std::vector<char>& code);
+  void create_render_pass();
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
