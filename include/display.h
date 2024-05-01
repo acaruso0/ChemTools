@@ -6,6 +6,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <vulkan/vulkan_core.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -67,6 +68,9 @@ class DisplayApplication {
   VkRenderPass render_pass;
   VkPipelineLayout pipeline_layout;
   VkPipeline graphics_pipeline;
+  std::vector<VkFramebuffer> swap_chain_framebuffers;
+  VkCommandPool command_pool;
+  VkCommandBuffer command_buffer;
 
   void init_window();
   void init_vulkan();
@@ -103,6 +107,12 @@ class DisplayApplication {
   static std::vector<char> read_binary_file(const std::string& filename);
   VkShaderModule create_shader_module(const std::vector<char>& code);
   void create_render_pass();
+  void create_framebuffers();
+  void create_command_pool();
+  void create_command_buffer();
+  void record_command_buffer(VkCommandBuffer command_buffer, uint32_t image_index);
+
+  void draw_frame();
 };
 
 #endif // CHEMTOOLS_DISPLAY_H
