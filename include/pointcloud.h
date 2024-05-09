@@ -3,6 +3,10 @@
 #ifndef CHEMTOOLS_POINTCLOUD_H
 #define CHEMTOOLS_POINTCLOUD_H
 
+#include <cstdint>
+#include <stdfloat>
+
+
 struct PointCloud;
 
 namespace io {
@@ -16,12 +20,12 @@ struct PointCloud {
   ~PointCloud();
 
  private:
-  unsigned int nframes{0};
-  unsigned int npoints{0};
+  std::uint32_t nframes{0};
+  std::uint16_t npoints{0};
 
-  double* x{nullptr};
-  double* y{nullptr};
-  double* z{nullptr};
+  std::float32_t* x{nullptr};
+  std::float32_t* y{nullptr};
+  std::float32_t* z{nullptr};
 
   void allocate();
 

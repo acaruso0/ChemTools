@@ -3,11 +3,12 @@
 #include "parser.h"
 
 #include <iostream>
+#include <cstdint>
 
 
 InputParser::InputParser(int argc, char** argv) {
   if (argc > 1) [[likely]] {
-    for (int i{0}; i < argc; ++i) {
+    for (std::uint8_t i{0}; i < argc; ++i) {
       std::cout << argv[i] << ' ';
     }
     std::cout << std::endl;
