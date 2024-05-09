@@ -3,8 +3,9 @@
 #include "ChemToolsConfig.h"
 
 #include <cstdlib>
-#include <exception>
+//#include <exception>
 #include <mpi.h>
+#include <thread>
 #include <iostream>
 
 //#include "logger.h"
@@ -14,22 +15,30 @@
 #include "display.h"
 
 
+void make_gui(int argc, char** argv) {
+  GraphicalUserInterface gui(argc, argv);
+  gui.run();
+}
+
+void make_display() {
+  DisplayApplication app;
+  app.run();
+
+  //try {
+  //  app.run();
+  //} catch (const std::exception& e) {
+  //  std::cerr << e.what() << std::endl;
+  //  return EXIT_FAILURE;
+  //}
+}
+
 int main(int argc, char** argv) {
   std::cout << "Version " << ChemTools_VERSION_MAJOR << '.' << ChemTools_VERSION_MINOR << std::endl;
 
   InputParser parser(argc, argv);
 
-  GraphicalUserInterface gui(argc, argv);
-  gui.run();
-
-  DisplayApplication app;
-
-  try {
-    app.run();
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
-    return EXIT_FAILURE;
-  }
+  std::jthread thread_gui(make_gui, argc, argv);
+  std::jthread thread_display(make_display);
 
   MPI_Init(&argc, &argv);
 

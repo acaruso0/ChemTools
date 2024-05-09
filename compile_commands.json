@@ -1,6 +1,7 @@
 [
   {
     "directory": "/home/alessandro/codes/ChemTools",
+    # "command": "clang++ -x c++ *.cc -std=c++23 -g -Wall -Wextra -Wpedantic -Werror -fno-exceptions -I./include",
     "command": "clang++ -x c++ *.cc -std=c++23 -g -Wall -Wextra -Wpedantic -Werror -I./include",
     "file": "*.cc"
   },
