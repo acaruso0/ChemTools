@@ -3,9 +3,14 @@
 #ifndef CHEMTOOLS_PARSER_H
 #define CHEMTOOLS_PARSER_H
 
+#include <string>
+
 
 class InputParser {
  public:
+  std::string filename;
+  std::string method{"edit"};
+
   void listen();
 
   InputParser(int argc, char** argv);

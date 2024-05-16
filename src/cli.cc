@@ -13,6 +13,8 @@
 #include "parser.h"
 #include "gui.h"
 #include "display.h"
+#include "pointcloud.h"
+#include "io.h"
 
 
 void make_gui(int argc, char** argv) {
@@ -37,8 +39,14 @@ int main(int argc, char** argv) {
 
   InputParser parser(argc, argv);
 
-  std::jthread thread_gui(make_gui, argc, argv);
-  std::jthread thread_display(make_display);
+  std::cout << parser.method << '\n';
+  std::cout << parser.filename << '\n';
+
+  //std::jthread thread_gui(make_gui, argc, argv);
+  //std::jthread thread_display(make_display);
+
+  //PointCloud pc;
+  //io::read_xyz_from_file(parser.filename, pc);
 
   MPI_Init(&argc, &argv);
 
