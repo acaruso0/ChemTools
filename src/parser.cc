@@ -11,13 +11,11 @@
 InputParser::InputParser(int argc, char** argv) {
   if (argc > 1) [[likely]] {
     std::istringstream iss;
-
-    //for (std::uint8_t i{0}; i < argc; ++i) {
-    std::uint8_t i{0};
+    std::uint8_t i{1};
     while (i < argc) {
-      if (!strncmp(argv[i], "--m", 3)) {
+      if (!strncmp(argv[i++], "-m", 2)) {
         iss.clear();
-        iss.str(argv[++i]);
+        iss.str(argv[i++]);
         iss >> this->method;
       } else {
         iss.clear();
