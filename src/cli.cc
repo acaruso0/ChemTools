@@ -47,7 +47,8 @@ int main(int argc, char** argv) {
   //std::jthread thread_display(make_display);
 
   PointCloud pc;
-  io::read_xyz_from_file(parser.filename, pc);
+  io::load_xyz(parser.filename, pc);
+  io::dump_xyz("test.xyz", pc);
 
   MPI_Init(&argc, &argv);
 

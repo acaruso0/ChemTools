@@ -11,11 +11,13 @@
 struct PointCloud;
 
 namespace io {
-  void read_xyz_from_file(const std::string &filename, PointCloud &data);
+  void load_xyz(const std::string &filename, PointCloud &data);
+  void dump_xyz(const std::string &filename, PointCloud &data);
 }
 
 struct PointCloud {
-  friend void io::read_xyz_from_file(const std::string &filename, PointCloud &data);
+  friend void io::load_xyz(const std::string &filename, PointCloud &data);
+  friend void io::dump_xyz(const std::string &filename, PointCloud &data);
  public:
   PointCloud()                                   = default;
   ~PointCloud();

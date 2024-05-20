@@ -9,7 +9,8 @@
 
 
 namespace io {
-  void read_xyz_from_file(const std::string &filename, PointCloud &data);
+  void load_xyz(const std::string &filename, PointCloud &data);
+  void dump_xyz(const std::string &filename, PointCloud &data);
 }
 
 #endif // CHEMTOOLS_IO_H
