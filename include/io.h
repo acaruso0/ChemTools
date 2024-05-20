@@ -5,8 +5,11 @@
 
 #include "pointcloud.h"
 
+#include <string>
+
+
 namespace io {
-  PointCloud* read_xyz_from_file(const char* filename, PointCloud* data);
+  void read_xyz_from_file(const std::string &filename, PointCloud &data);
 }
 
 #endif // CHEMTOOLS_IO_H

@@ -5,16 +5,17 @@
 
 #include <cstdint>
 #include <stdfloat>
+#include <string>
 
 
 struct PointCloud;
 
 namespace io {
-  PointCloud* read_xyz_from_file(const char *filename, PointCloud *data);
+  void read_xyz_from_file(const std::string &filename, PointCloud &data);
 }
 
 struct PointCloud {
-  friend PointCloud* io::read_xyz_from_file(const char *filename, PointCloud *data);
+  friend void io::read_xyz_from_file(const std::string &filename, PointCloud &data);
  public:
   PointCloud()                                   = default;
   ~PointCloud();

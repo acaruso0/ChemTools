@@ -2,47 +2,45 @@
 
 #include "io.h"
 
+#include <string>
 #include <fstream>
 #include <sstream>
 
-PointCloud* io::read_xyz_from_file(const char* filename, PointCloud* data) {
+void io::read_xyz_from_file(const std::string &filename, PointCloud &data) {
   std::ifstream file(filename);
   if (file.is_open()) {
     std::string line;
     std::istringstream iss;
 
     getline(file, line);
-    ++data->nframes;
+    ++data.nframes;
     iss.str(line);
-    iss >> data->npoints;
+    iss >> data.npoints;
     while (getline(file, line)) {
-      ++data->nframes;
+      ++data.nframes;
     }
-    data->nframes /= data->npoints;
+    data.nframes /= (data.npoints + 2);
     file.clear();
     file.seekg(0);
 
-    data->allocate();
+    data.allocate();
 
-    for (unsigned int i{0}; i < data->nframes; ++i) {
+    for (unsigned int i{0}; i < data.nframes; ++i) {
       getline(file, line);
       getline(file, line);
 
-      for (unsigned int j{0}; j < data->npoints; ++j) {
+      for (unsigned int j{0}; j < data.npoints; ++j) {
         iss.clear();
         std::string _;
 
         getline(file, line);
         iss.str(line);
-        iss >> _ >> data->x[j + data->npoints*data->nframes]
-                 >> data->y[j + data->npoints*data->nframes]
-                 >> data->z[j + data->npoints*data->nframes];
+        iss >> _ >> data.x[j + data.npoints*i]
+                 >> data.y[j + data.npoints*i]
+                 >> data.z[j + data.npoints*i];
       }
     }
 
     file.close();
-
-    return data;
   }
-  return nullptr;
 }

@@ -11,7 +11,7 @@ class InputParser {
   std::string filename;
   std::string method;
 
-  void listen();
+  //void listen();
 
   InputParser(int argc, char** argv);
   ~InputParser()                                   = default;
