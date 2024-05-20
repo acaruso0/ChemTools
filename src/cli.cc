@@ -5,8 +5,10 @@
 #include <cstdlib>
 //#include <exception>
 #include <mpi.h>
+#include <ostream>
 #include <thread>
 #include <iostream>
+#include <print>
 
 //#include "logger.h"
 #include "options.h"
@@ -39,8 +41,7 @@ int main(int argc, char** argv) {
 
   InputParser parser(argc, argv);
 
-  std::cout << parser.method << '\n';
-  std::cout << parser.filename << '\n';
+  std::print("Method: {0}\nFilename: {1}\n", parser.method, parser.filename);
 
   //std::jthread thread_gui(make_gui, argc, argv);
   //std::jthread thread_display(make_display);
@@ -56,7 +57,7 @@ int main(int argc, char** argv) {
   int my_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-  std::cout << "World size: " << world_size << ", Rank: " << my_rank << std::endl;
+  std::println("World size: {0}, Rank: {1}", world_size, my_rank);
 
   MPI_Finalize();
 

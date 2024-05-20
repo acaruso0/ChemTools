@@ -9,7 +9,7 @@
 class InputParser {
  public:
   std::string filename;
-  std::string method{"edit"};
+  std::string method;
 
   void listen();
 
